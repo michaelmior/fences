@@ -140,6 +140,12 @@ def _merge_enums(a: List[any], b: List[any]) -> List[any]:
     b = set(b)
     return list(a & b)
 
+def _merge_defs(a: dict, b: dict) -> dict:
+    if set(a.keys()).isdisjoint(set(b.keys())):
+        return {**a, **b}
+    else:
+        raise NormalizationException("Cannot merge definitions")
+
 
 def _float_gcd(a, b, rtol=1e-05, atol=1e-08):
     t = min(abs(a), abs(b))
@@ -164,6 +170,7 @@ _simple_mergers = {
     'format': lambda a, b: a,  # todo
     'NOT_enum': lambda a, b: a + b,
     'enum': _merge_enums,
+    '$defs': _merge_defs,
 }
 
 
