@@ -346,7 +346,7 @@ def parse_array(data: dict, config: Config, unparsed_keys: Set[str], pointer: Js
     min_items = _read_int(data, 'minItems', unparsed_keys, pointer, 1)
     max_items = _read_int(data, 'maxItems', unparsed_keys, pointer, None)
     prefix_items = _read_list(data, 'prefixItems', unparsed_keys, pointer, {})
-    unique_items = _read_dict(data, 'uniqueItems', unparsed_keys, pointer, {})
+    unique_items = _read_typesafe(data, 'uniqueItems', unparsed_keys, bool, 'bool', pointer, None)
     contains = _read_dict(data, 'contains', unparsed_keys, pointer, None)
     min_contains = _read_int(data, 'minContains', unparsed_keys, pointer, 1)
     max_contains = _read_int(data, 'maxContains', unparsed_keys, pointer, None)
