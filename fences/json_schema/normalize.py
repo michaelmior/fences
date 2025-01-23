@@ -239,13 +239,14 @@ def _merge_prefix_items(result: dict, to_add: dict) -> dict:
 _complex_mergers = {
     'prefixItems': _merge_prefix_items,
     'properties': _merge_properties,
+    'additionalProperties': None, # handled by _merge_properties
 }
 
 
 def _merge(result: dict, to_add: dict, config: NormalizationConfig) -> None:
 
     for key, merger in _complex_mergers.items():
-        if key in result or key in to_add:
+        if (key in result or key in to_add) and merger is not None:
             result[key] = merger(result, to_add)
 
     for key, value in result.items():
