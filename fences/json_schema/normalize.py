@@ -130,6 +130,12 @@ def _merge_type(a: Union[List[str], str], b: Union[List[str], str]) -> List[str]
 
 def _merge_enums(a: List[any], b: List[any]) -> List[any]:
     # TODO: we assume string lists, we is not generic
+    for (i, item) in enumerate(a):
+        if isinstance(item, list):
+            a[i] = tuple(item)
+    for (i, item) in enumerate(b):
+        if isinstance(item, list):
+            b[i] = tuple(item)
     a = set(a)
     b = set(b)
     return list(a & b)
