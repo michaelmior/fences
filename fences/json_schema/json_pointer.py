@@ -1,4 +1,5 @@
 from typing import Union
+from urllib.parse import unquote
 from fences.core.exception import JsonPointerException
 
 
@@ -36,7 +37,7 @@ class JsonPointer:
         if index == len(self.elements):
             return data
         if isinstance(data, dict):
-            key = self.elements[index]
+            key = unquote(self.elements[index].replace('~1', '/').replace('~0', '~'))
             try:
                 value = data[key]
             except KeyError:
